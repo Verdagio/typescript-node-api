@@ -1,0 +1,39 @@
+{
+  "name": "typescript-node-api",
+  "version": "0.0.0",
+  "description": "A simple boilerplate typescript node.js api",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "test": "npm build && mocha test/**/*.spec.ts",
+    "start": "npm run build:live && node lib/server.js",
+    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- src/index.ts"
+  },
+  "author": "Daniel Verdejo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Verdagio/typescript-node-api.git"
+  },
+  "keywords": [
+    "node",
+    "typescript"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Verdagio/typescript-node-api/issues"
+  },
+  "homepage": "https://github.com/Verdagio/typescript-node-api#readme",
+  "devDependencies": {
+    "@types/node": "^10.3.4",
+    "@types/request": "^2.47.1",
+    "@types/assert": "0.0.31",
+    "@types/mocha": "^5.2.2",
+    "nodemon": "^1.17.5",
+    "ts-node": "^6.1.1",
+    "typescript": "^2.9.2",
+    "mocha": "^5.2.0"
+  },
+  "dependencies": {
+    "node": ">=7.10.1"
+  }
+}

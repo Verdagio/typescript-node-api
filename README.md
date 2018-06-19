@@ -1,2 +1,2 @@
-# node-microservice
-A simple boilerplate node.js micro-service
+# typescript-node-api
+A simple boilerplate typescript node.js api
