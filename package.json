@@ -5,10 +5,15 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "test": "npm build && mocha test/**/*.spec.ts",
-    "start": "npm run build:live && node lib/server.js",
-    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- src/index.ts"
-  },
+        "clean": "rimraf lib",
+        "lint": "tslint --force --format verbose \"src/**/*.ts\"",
+        "build": "npm run lint && echo Using TypeScript && tsc --version && tsc --pretty",
+        "postinstall": "npm run build",
+        "start": "npm run build && node lib/server.js | bunyan",
+        "test": "npm run build && cross-env NODE_ENV=test mocha --require ts-node/register --recursive test/**/*.spec.ts",
+        "watch": "concurrently -k \"npm run build -- --watch\" \"nodemon --inspect lib/server.js | bunyan\"",
+        "watch:test": "npm run test -- --watch"
+    },
   "author": "Daniel Verdejo",
   "repository": {
     "type": "git",
@@ -18,22 +23,30 @@
     "node",
     "typescript"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Verdagio/typescript-node-api/issues"
   },
   "homepage": "https://github.com/Verdagio/typescript-node-api#readme",
   "devDependencies": {
+    "@types/assert": "0.0.31",
+    "@types/bunyan": "^1.8.3",
+    "@types/config": "0.0.33",
+    "@types/mocha": "^5.2.2",
     "@types/node": "^10.3.4",
     "@types/request": "^2.47.1",
-    "@types/assert": "0.0.31",
-    "@types/mocha": "^5.2.2",
+    "cross-env": "^5.0.5",
     "nodemon": "^1.17.5",
     "ts-node": "^6.1.1",
+    "tslint": "^5.7.0",
     "typescript": "^2.9.2",
     "mocha": "^5.2.0"
   },
   "dependencies": {
+    "bunyan": "^1.8.12",
+    "config": "^1.26.2"
+  },
+  "engines": {
     "node": ">=7.10.1"
   }
 }
