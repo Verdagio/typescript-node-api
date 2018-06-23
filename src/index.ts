@@ -31,8 +31,7 @@ export const server: http.Server = http.createServer((request: http.IncomingMess
     let payload: String = '';
     let buffer: http.IncomingMessage = request.on('data', (data: Buffer) => {
         payload += decoder.write(data);
-    });
-    buffer = request.on('end', () => {
+    }).on('end', () => {
         payload += decoder.end();
 
         //send response
