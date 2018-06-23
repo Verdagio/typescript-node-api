@@ -1,23 +1,23 @@
 {
-  "name": "typescript-node-api",
+  "name": "typescript-express-api",
   "version": "0.0.0",
-  "description": "A simple boilerplate typescript node.js api",
+  "description": "A simple boilerplate typescript express node.js api",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-        "clean": "rimraf lib",
-        "lint": "tslint --force --format verbose \"src/**/*.ts\"",
-        "build": "npm run lint && echo Using TypeScript && tsc --version && tsc --pretty",
-        "postinstall": "npm run build",
-        "start": "npm run build && node lib/server.js | bunyan",
-        "test": "npm run build && cross-env NODE_ENV=test mocha --require ts-node/register --recursive test/**/*.spec.ts",
-        "watch": "concurrently -k \"npm run build -- --watch\" \"nodemon --inspect lib/server.js | bunyan\"",
-        "watch:test": "npm run test -- --watch"
-    },
+    "clean": "rimraf lib",
+    "lint": "tslint --force --format verbose \"src/**/*.ts\"",
+    "build": "npm run lint && echo Using TypeScript && tsc --version && tsc --pretty",
+    "postinstall": "npm run build",
+    "start": "npm run build && node lib/index.js",
+    "test": "npm run build && cross-env NODE_ENV=test mocha --require ts-node/register --recursive test/**/*.spec.ts",
+    "watch": "concurrently -k \"npm run build -- --watch\" \"nodemon --inspect lib/server.js | bunyan\"",
+    "watch:test": "npm run test -- --watch"
+  },
   "author": "Daniel Verdejo",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Verdagio/typescript-node-api.git"
+    "url": "git+https://github.com/Verdagio/typescript-express-api.git"
   },
   "keywords": [
     "node",
@@ -25,16 +25,15 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Verdagio/typescript-node-api/issues"
+    "url": "https://github.com/Verdagio/typescript-express-api/issues"
   },
-  "homepage": "https://github.com/Verdagio/typescript-node-api#readme",
+  "homepage": "https://github.com/Verdagio/typescript-express-api#readme",
   "devDependencies": {
     "@types/assert": "0.0.31",
     "@types/bunyan": "^1.8.3",
     "@types/config": "0.0.33",
     "@types/mocha": "^5.2.2",
     "@types/node": "^10.3.4",
-    "@types/request": "^2.47.1",
     "cross-env": "^5.0.5",
     "nodemon": "^1.17.5",
     "ts-node": "^6.1.1",

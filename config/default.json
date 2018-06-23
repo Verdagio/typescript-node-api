@@ -1,0 +1,6 @@
+{
+    "Server": {
+        "name": "typescript-express-api",
+        "port": 9000
+    }
+}
