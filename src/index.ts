@@ -44,7 +44,7 @@ export const server: http.Server = http.createServer((request: http.IncomingMess
 
             const payloadString: string = JSON.stringify(payload);
 
-            response.write(statusCode);
+            response.setHeader('statusCode', 200);
             response.end(payloadString);
 
             console.log('Response returned: ', statusCode, payloadString);
