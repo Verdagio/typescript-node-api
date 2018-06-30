@@ -1,6 +1,7 @@
 import * as config from 'config';
 import * as http from 'http';
 import * as url from 'url';
+import * as router  from './routes'
 import { StringDecoder as StringDecoder } from 'string_decoder';
 import { ParsedUrlQuery } from 'querystring';
 import { ParsedPath } from 'path';
@@ -8,37 +9,48 @@ import { ParsedPath } from 'path';
 const port = config.get('Server.port');
 const decoder = new StringDecoder('utf-8');
 
-
-
 export const server: http.Server = http.createServer((request: http.IncomingMessage, response: http.OutgoingMessage) => {
+
     // Parse URL's
     const parsedUrl: url.UrlWithParsedQuery = url.parse(request.url, true);
-
-    // Get Paths
-    const path: String = parsedUrl.pathname;
-    const trimmedPath: String = path.replace(/^\/+|\/+$/g,''); // Get a clean url 
-
-    // get query string object
-    const queryStringObj: ParsedUrlQuery = parsedUrl.query;
-
-    // get the http method
-    const method: String = request.method.toLowerCase();
-
-    //Get the headers
+    const trimmedPath: string =  parsedUrl.pathname.replace(/^\/+|\/+$/g,''); // Get a clean url 
+    const queryStringObject: ParsedUrlQuery  = parsedUrl.query;
+    const method: string = request.method.toLowerCase();
     const headers: http.IncomingHttpHeaders = request.headers;
 
+
+
+    let payload: string = '';
+
     //get the payload
-    let payload: String = '';
-    let buffer: http.IncomingMessage = request.on('data', (data: Buffer) => {
+    const buffer: http.IncomingMessage = request.on('data', (data: Buffer) => {
         payload += decoder.write(data);
     }).on('end', () => {
         payload += decoder.end();
 
-        //send response
-        response.end('\nQuery Success...\n');
+        const data = {
+            'trimmedPath': trimmedPath,
+            'queryStringObject': queryStringObject,                       // get query string object
+            'method': method, 
+            'headers': headers,
+            'payload': payload
+        };
+        
+        const chosenHandler = (router.routes.hasOwnProperty(data.trimmedPath)) ? router.routes.get(data.trimmedPath) : router.handlerNotfound;
+        
+        chosenHandler({...data, payload}, (statusCode: number, payload: object) => {
+            statusCode = typeof(statusCode) === 'number' ? statusCode : 200;
+            payload = typeof(payload) === 'object' ? payload : {};
 
-        //log request path
-        console.log('payload: ', payload);
+            const payloadString: string = JSON.stringify(payload);
+
+            response.write(statusCode);
+            response.end(payloadString);
+
+            console.log('Response returned: ', statusCode, payloadString);
+        });
+        
+
     });
 
 }).listen(port, (error: Error) => {

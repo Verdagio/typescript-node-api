@@ -1,10 +1,4 @@
-import * as http from 'http';
-
-const healthcheck = (req: http.IncomingMessage , res: http.OutgoingMessage) => {
-    res.write(req.url);
-    return res.end('Healthcheck done...');
-};
-
-
-
+export const healthcheck = (data:object, callback: (statusCode: number, payload?: object) => object) => {
+    callback(200, {'name': 'healthcheck'});
+} 
 
