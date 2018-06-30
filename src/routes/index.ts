@@ -6,9 +6,6 @@ export const handlerNotfound = (data: object, callback: (statusCode: number, pay
     callback(404, {'name': 'handlerNotFound'});
 } 
 
-export const routes = {
-    'get': (s: string)=>{
-        return this.s;
-    },
-    'healthcheck': healthcheck
+export const routes: object = {
+        'healthcheck': healthcheck
 };

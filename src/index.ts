@@ -36,7 +36,7 @@ export const server: http.Server = http.createServer((request: http.IncomingMess
             'payload': payload
         };
         
-        const chosenHandler = (router.routes.hasOwnProperty(data.trimmedPath)) ? router.routes.get(data.trimmedPath) : router.handlerNotfound;
+        const chosenHandler = (router.routes.hasOwnProperty(trimmedPath)) ? router.routes[`${trimmedPath}`] : router.handlerNotfound;
         
         chosenHandler({...data, payload}, (statusCode: number, payload: object) => {
             statusCode = typeof(statusCode) === 'number' ? statusCode : 200;
