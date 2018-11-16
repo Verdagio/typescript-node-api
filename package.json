@@ -1,15 +1,15 @@
 {
-  "name": "typescript-express-api",
+  "name": "typescript-node-api",
   "version": "0.0.0",
-  "description": "A simple boilerplate typescript express node.js api",
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "description": "A simple boilerplate typescript node.js api",
+  "main": "lib/server.js",
+  "typings": "lib/server.d.ts",
   "scripts": {
     "clean": "rimraf lib",
     "lint": "tslint --force --format verbose \"src/**/*.ts\"",
     "build": "npm run lint && echo Using TypeScript && tsc --version && tsc --pretty",
     "postinstall": "npm run build",
-    "start": "npm run build && node lib/index.js",
+    "start": "npm run build && node lib/server.js",
     "test": "npm run build && cross-env NODE_ENV=test mocha --require ts-node/register --recursive test/**/*.spec.ts",
     "watch": "concurrently -k \"npm run build -- --watch\" \"nodemon --inspect lib/server.js | bunyan\"",
     "watch:test": "npm run test -- --watch"
@@ -17,7 +17,7 @@
   "author": "Daniel Verdejo",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Verdagio/typescript-express-api.git"
+    "url": "git+https://github.com/Verdagio/typescript-node-api.git"
   },
   "keywords": [
     "node",
@@ -25,9 +25,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Verdagio/typescript-express-api/issues"
+    "url": "https://github.com/Verdagio/typescript-node-api/issues"
   },
-  "homepage": "https://github.com/Verdagio/typescript-express-api#readme",
+  "homepage": "https://github.com/Verdagio/typescript-node-api#readme",
   "devDependencies": {
     "@types/assert": "0.0.31",
     "@types/bunyan": "^1.8.3",

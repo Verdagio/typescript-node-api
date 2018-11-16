@@ -1,6 +1,14 @@
 {
-    "Server": {
-        "name": "typescript-express-api",
+    "staging": {
+        "name": "typescript-node-api_staging",
+        "port": 3000
+    },
+    "production": {
+        "name": "typescript-node-api_production",
         "port": 9000
+    },
+    "default": {
+        "name" : "typescript-node-api_staging",
+        "port": 3000
     }
 }
