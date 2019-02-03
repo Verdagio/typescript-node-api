@@ -5,14 +5,10 @@
   "main": "lib/server.js",
   "typings": "lib/server.d.ts",
   "scripts": {
-    "clean": "rimraf lib",
-    "lint": "tslint --force --format verbose \"src/**/*.ts\"",
-    "build": "npm run lint && echo Using TypeScript && tsc --version && tsc --pretty",
-    "postinstall": "npm run build",
-    "start": "npm run build && node lib/server.js",
-    "test": "npm run build && cross-env NODE_ENV=test mocha --require ts-node/register --recursive test/**/*.spec.ts",
-    "watch": "concurrently -k \"npm run build -- --watch\" \"nodemon --inspect lib/server.js | bunyan\"",
-    "watch:test": "npm run test -- --watch"
+    "build": "tsc",
+    "dev": "cross-env NODE_ENV=development ts-node ./src/server.ts",
+    "start": "node ./lib/server.js",
+    "prod": "npm run build && cross-env NODE_ENV=production npm run start"
   },
   "author": "Daniel Verdejo",
   "repository": {

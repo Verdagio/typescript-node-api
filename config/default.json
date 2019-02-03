@@ -1,14 +1,14 @@
 {
-    "staging": {
+    "development": {
         "name": "typescript-node-api_staging",
-        "port": 3000
+        "port": 5000
     },
     "production": {
         "name": "typescript-node-api_production",
         "port": 9000
     },
     "default": {
-        "name" : "typescript-node-api_staging",
-        "port": 3000
+        "name": "typescript-node-api_staging",
+        "port": 5000
     }
 }
