@@ -5,13 +5,13 @@ import * as router from './routes'
 
 import { StringDecoder as StringDecoder } from 'string_decoder';
 import { ParsedUrlQuery } from 'querystring';
+import { Data } from './model/data-type';
 
 const decoder = new StringDecoder('utf-8');
 const env = typeof(process.env.NODE_ENV) === 'string' ? process.env.NODE_ENV.toLowerCase() : 'default';
 
 export const server: http.Server = http.createServer((request: http.IncomingMessage, response: http.ServerResponse) => {
-
-    // Parse URL's
+     // Parse URL's
     const parsedUrl: url.UrlWithParsedQuery = url.parse(request.url, true);
     const trimmedPath: string = parsedUrl.pathname.replace(/^\/+|\/+$/g, ''); // Get a clean url 
     const queryStringObject: ParsedUrlQuery = parsedUrl.query;
@@ -26,13 +26,13 @@ export const server: http.Server = http.createServer((request: http.IncomingMess
     }).on('end', () => {
         userPayload += decoder.end();
 
-        const data = {
-            'trimmedPath': trimmedPath,
-            'queryStringObject': queryStringObject,                       
-            'method': method,
-            'headers': headers,
-            'payload': userPayload
-        };
+        const data : Data = {
+            trimmedPath : trimmedPath,
+            queryStringObject : queryStringObject,
+            method : method,
+            headers : headers,
+            payload : userPayload
+        }
 
         const chosenHandler = (router.routes.hasOwnProperty(trimmedPath)) ? router.routes[trimmedPath] : router.handlerNotfound;
 
@@ -40,12 +40,12 @@ export const server: http.Server = http.createServer((request: http.IncomingMess
             statusCode = typeof (statusCode) === 'number' ? statusCode : 200;
             payload = typeof (payload) === 'object' ? payload : {};
 
-            const handlerPayload: string = JSON.stringify(payload);
+            const handlerPayload = JSON.stringify(payload);
 
             response.setHeader('Content-Type', 'application/json');
             response.writeHead(statusCode);
             response.end(handlerPayload);
-            console.log('Response returned: ', statusCode, handlerPayload, data.payload);
+            //console.log('Response returned: ', statusCode, handlerPayload, data.payload);
         });
 
 
