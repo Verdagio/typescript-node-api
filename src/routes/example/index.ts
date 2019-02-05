@@ -1,4 +1,4 @@
-// Example CRUD implementation of the GenericRoute for guidance purposes
+// Example CRUD implementation of a generic route 
 import {Data as  Data } from '../../model/data-type';
 
 export const sample = {
